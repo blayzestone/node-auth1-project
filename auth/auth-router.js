@@ -30,7 +30,7 @@ router.post("/login", async (req, res) => {
     if (user && bcryptjs.compareSync(password, user.password)) {
       res.status(200).json(user);
     } else {
-      res.status(401).json({ message: "incorrect credentials" });
+      res.status(401).json({ message: "You shall not pass!" });
     }
   } catch (err) {
     res.status(500).json({ error: "failed" });
