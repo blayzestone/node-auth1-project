@@ -28,7 +28,11 @@ router.post("/login", async (req, res) => {
     const [user] = await Users.findBy({ username });
 
     if (user && bcryptjs.compareSync(password, user.password)) {
-      res.status(200).json(user);
+      req.session.user = { id: user.id, username: user.username };
+
+      res
+        .status(200)
+        .json({ message: `Welcome, ${user.username}`, session: req.session });
     } else {
       res.status(401).json({ message: "You shall not pass!" });
     }
